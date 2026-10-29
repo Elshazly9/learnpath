@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LearnPath</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#4F46E5;--primary-d:#4338CA;--primary-p:#3730A3;--amber:#F59E0B;
+  --text:#0F172A;--muted:#64748B;--line:#E8ECF3;--section:#F8FAFC;--lav:#EEF1FF;
+  --shadow:0 1px 2px rgba(15,23,42,.05),0 2px 8px rgba(15,23,42,.04);
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:88px}
+body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;font-size:14px;line-height:1.55;color:var(--text);background:#fff;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:#fff;z-index:60}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer}
+p,h1,h2,h3,h4,figure{margin:0}
+svg{display:block;flex:none}
+:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.c{width:min(1216px,100% - 48px);margin:0 auto}
+.eyebrow{font-size:12px;font-weight:600;color:var(--primary);margin-bottom:10px}
+h2{font-size:32px;line-height:1.2;font-weight:700;letter-spacing:-.025em;margin-bottom:10px}
+.lead{color:var(--muted);font-size:14px}
+.head{margin-bottom:36px}
+section{padding:80px 0}
+.gray{background:var(--section)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 18px;border-radius:8px;border:1px solid transparent;font-weight:500;font-size:14px;transition:background .15s,border-color .15s,transform .1s,box-shadow .15s}
+.btn-p{background:var(--primary);color:#fff}
+.btn-p:hover{background:var(--primary-d)}
+.btn-p:active{background:var(--primary-p);transform:translateY(1px)}
+.btn-g{background:#fff;color:var(--text);border-color:var(--line)}
+.btn-g:hover{border-color:var(--primary);background:#fff}
+.btn-g:active{background:var(--lav);border-color:var(--primary)}
+.btn-s{height:34px;padding:0 16px;font-size:13px}
+.btn-w{width:100%;height:44px}
+
+/* header */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:#fff;border-bottom:1px solid var(--line)}
+.nav{height:80px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center}
+.logo{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:16px;letter-spacing:-.01em}
+.logo i{display:grid;place-items:center;width:24px;height:24px;border-radius:7px;background:var(--primary);color:#fff}
+.links{display:flex;gap:28px}
+.links a{font-size:13px;color:var(--muted);transition:color .15s}
+.links a:hover,.links a.on{color:var(--primary)}
+.nav .btn{justify-self:end}
+.burger{display:none;justify-self:end;width:44px;height:44px;border:0;background:none;color:var(--text);place-items:center}
+
+/* hero */
+.hero{padding:80px 0}
+.hero .c{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.tag{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--primary);margin-bottom:22px}
+.tag::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--amber)}
+h1{font-size:48px;line-height:1.1;font-weight:700;letter-spacing:-.035em;margin-bottom:22px}
+h1 span{display:block;color:var(--primary)}
+.hero p.lead{font-size:15px;max-width:480px;margin-bottom:26px;line-height:1.65}
+.cta{display:flex;gap:12px;margin-bottom:18px}
+.note{font-size:12px;color:var(--muted)}
+.panel{position:relative;overflow:hidden;background:var(--lav);border-radius:16px;padding:48px 40px}
+.panel::before{content:"";position:absolute;top:-76px;right:-52px;width:190px;height:190px;border-radius:50%;background:#C9D3FB}
+.panel::after{content:"";position:absolute;left:-28px;bottom:-28px;width:120px;height:120px;border-radius:28px;background:#FEF6DB}
+.screen{position:relative;z-index:1;background:#fff;border-radius:14px;box-shadow:0 8px 28px rgba(79,70,229,.12),0 1px 3px rgba(15,23,42,.06);padding:18px 18px 20px}
+.bar{display:flex;align-items:center;gap:5px;margin-bottom:14px}
+.bar b{width:6px;height:6px;border-radius:50%;background:#CBD5E1}
+.bar b:last-of-type{background:var(--amber)}
+.bar em{margin-left:auto;font-style:normal;font-size:10px;font-weight:500;letter-spacing:.04em;text-transform:uppercase}
+.video{height:200px;background:#F1F4F9;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
+.play{width:36px;height:36px;border-radius:50%;border:0;background:var(--primary);color:#fff;display:grid;place-items:center;transition:transform .15s,background .15s}
+.play:hover{background:var(--primary-d);transform:scale(1.08)}
+.video small{font-size:10px;color:var(--muted)}
+.row{display:flex;align-items:center;gap:12px;margin-top:16px}
+.book{display:grid;place-items:center;width:30px;height:30px;border-radius:7px;background:#FEF3DC;color:#D97706}
+.row div{flex:1}
+.row b{display:block;font-size:12px;font-weight:600;margin-bottom:6px}
+.track{height:3px;background:var(--line);border-radius:9px}
+.track i{display:block;height:100%;width:60%;background:var(--primary);border-radius:9px}
+
+/* cards */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
+.feat{padding:24px}
+.ico{display:grid;place-items:center;width:34px;height:34px;border-radius:9px;background:var(--lav);color:var(--primary);margin-bottom:18px}
+.feat h3{font-size:15px;font-weight:600;margin-bottom:6px;letter-spacing:-.01em}
+.feat p{font-size:13px;color:var(--muted)}
+.course{overflow:hidden;transition:transform .2s,box-shadow .2s}
+.course:hover{transform:translateY(-6px);box-shadow:0 14px 32px rgba(79,70,229,.18),0 2px 6px rgba(15,23,42,.06)}
+.thumb{position:relative;overflow:hidden;height:176px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--primary)}
+.thumb::before,.thumb::after{content:"";position:absolute;border:1.5px solid var(--o);border-radius:28px}
+.thumb::before{width:110px;height:110px;right:-22px;top:-34px;transform:rotate(12deg)}
+.thumb::after{width:90px;height:90px;left:-30px;bottom:-24px;transform:rotate(-14deg)}
+.thumb span{position:relative;z-index:1;display:grid;place-items:center;width:46px;height:46px;border-radius:12px;background:#fff;box-shadow:var(--shadow)}
+.thumb em{position:relative;z-index:1;font-style:normal}
+.t1{background:#EEF1FF;--o:#CBD4F7}.t2{background:#F6F7FB;--o:#DDE2EC}.t3{background:#FFF8E1;--o:#F7CB62;color:var(--primary)}
+.cb{padding:20px 24px 22px}
+.meta{font-size:11px;color:var(--muted);margin-bottom:6px}
+.cb h3{font-size:15px;font-weight:600;letter-spacing:-.01em;margin-bottom:28px}
+.rate{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);padding-bottom:14px}
+.rate b{color:var(--text);font-weight:600}
+.buy{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:14px}
+.price{font-size:22px;font-weight:700;letter-spacing:-.02em}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.quote{padding:24px}
+.quote svg{color:var(--amber);margin-bottom:14px}
+.quote p{font-size:13px;line-height:1.7;margin-bottom:22px;min-height:66px}
+.who{display:flex;align-items:center;gap:12px}
+.av{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--lav);color:var(--primary);font-size:11px;font-weight:500}
+.who b{display:block;font-size:13px;font-weight:600}
+.who small{font-size:11px;color:var(--muted)}
+
+/* footer */
+footer{padding:56px 0 32px}
+.foot{display:grid;grid-template-columns:1fr 1fr auto;gap:32px;align-items:start;padding-bottom:28px;border-bottom:1px solid var(--line)}
+.foot .tagline{font-size:12px;color:var(--muted);margin-top:14px}
+.foot h4{font-size:12px;font-weight:600;margin-bottom:10px}
+.foot nav{display:flex;gap:16px}
+.foot nav a{font-size:12px;color:var(--muted)}
+.foot nav a:hover{color:var(--primary)}
+.social{display:flex;gap:12px;color:var(--muted)}
+.social a:hover{color:var(--primary)}
+.sc{text-align:right}.sc .social{justify-content:flex-end}
+.copy{margin-top:22px;font-size:11px;color:var(--muted)}
+
+/* mobile menu */
+.mm{position:fixed;z-index:90;top:calc(env(safe-area-inset-top,0px) + 12px);left:16px;right:16px;max-width:420px;margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px 16px;box-shadow:0 16px 40px rgba(15,23,42,.18);opacity:0;visibility:hidden;transform:translateY(-14px);transition:opacity .2s,transform .25s,visibility .25s}
+.mm.open{opacity:1;visibility:visible;transform:none}
+.mm .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.mm .x{width:36px;height:36px;border:0;background:none;display:grid;place-items:center;color:var(--text)}
+.mm a.i{display:block;padding:10px 12px;border-radius:6px;font-size:13px;font-weight:500}
+.mm a.i:hover,.mm a.i.on{background:var(--lav);color:var(--primary)}
+.mm hr{border:0;border-top:1px solid var(--line);margin:12px 0}
+
+/* modal */
+.ov{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:20px;background:rgba(10,18,48,.86);opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s}
+.ov.open{opacity:1;visibility:visible}
+.modal{width:100%;max-width:380px;background:#fff;border-radius:12px;padding:22px 24px 24px;box-shadow:0 24px 60px rgba(0,0,0,.4);transform:translateY(10px);transition:transform .2s}
+.ov.open .modal{transform:none}
+.mt{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
+.mt button{width:32px;height:32px;border:0;background:none;display:grid;place-items:center;color:var(--muted);border-radius:8px}
+.mt button:hover{background:var(--section)}
+.modal h2{font-size:22px;margin-bottom:6px}
+.modal .lead{font-size:12.5px;margin-bottom:6px}
+label{display:block;font-size:12px;font-weight:600;margin:14px 0 6px}
+.f{position:relative}
+input{width:100%;height:40px;padding:0 12px;border:1px solid var(--line);border-radius:8px;font:inherit;font-size:13px;color:var(--text);background:#fff}
+input::placeholder{color:#94A3B8}
+input:focus{outline:2px solid var(--primary);outline-offset:-1px;border-color:transparent}
+input.bad{border-color:#DC2626}
+.eye{position:absolute;right:4px;top:2px;width:36px;height:36px;border:0;background:none;color:var(--muted);display:grid;place-items:center}
+.hint{font-size:11px;color:var(--muted);margin-top:6px}
+.hint.bad{color:#DC2626}
+.err{font-size:11px;color:#DC2626;margin-top:5px}
+.modal .btn-w{margin-top:18px}
+.ok{text-align:center;padding:8px 0 4px}
+.ok .ico{margin:0 auto 14px;width:48px;height:48px;border-radius:50%}
+
+@media (max-width:900px){
+  section{padding:48px 0}.hero{padding:40px 0 48px}
+  .nav{grid-template-columns:1fr auto;height:64px}
+  .links,.nav>.btn{display:none}.burger{display:grid}
+  .hero .c{grid-template-columns:1fr;gap:36px}
+  h1{font-size:40px}h2{font-size:28px}
+  .cta{flex-direction:column;align-items:center}.cta .btn-p{width:100%;height:44px}
+  .cta .btn-g{border-color:transparent;background:none}
+  .note{text-align:center}
+  .panel{padding:28px 18px}
+  .video{height:150px}
+  .grid3,.grid2{grid-template-columns:1fr;gap:16px}
+  .head{margin-bottom:28px}
+  .foot{grid-template-columns:1fr;gap:24px}.sc{text-align:left}.sc .social{justify-content:flex-start}
+  .foot nav{flex-wrap:wrap}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="mark" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<header>
+  <div class="c nav">
+    <a class="logo" href="#home" aria-label="LearnPath home"><i><svg width="14" height="14"><use href="#mark"/></svg></i>LearnPath</a>
+    <nav class="links" aria-label="Main">
+      <a href="#home" class="on">Home</a><a href="#courses">Courses</a><a href="#pricing">Pricing</a><a href="#contact">Contact</a>
+    </nav>
+    <button class="btn btn-p btn-s" data-open>Sign Up</button>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="mm"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  </div>
+</header>
+
+<div class="mm" id="mm" aria-hidden="true">
+  <div class="top"><a class="logo" href="#home"><i><svg width="14" height="14"><use href="#mark"/></svg></i>LearnPath</a>
+    <button class="x" id="mx" aria-label="Close menu"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+  <a class="i on" href="#home">Home</a><a class="i" href="#courses">Courses</a><a class="i" href="#pricing">Pricing</a><a class="i" href="#contact">Contact</a>
+  <hr><button class="btn btn-p btn-w" data-open>Sign Up</button>
+</div>
+
+<main>
+<section class="hero" id="home">
+  <div class="c">
+    <div>
+      <div class="tag">Your next chapter starts here</div>
+      <h1>Small steps. <span>Big possibilities.</span></h1>
+      <p class="lead">Build real-world skills with expert-led courses. Find your path, learn at your pace, and take your next step with confidence.</p>
+      <div class="cta">
+        <a class="btn btn-p" href="#courses">Get Started</a>
+        <button class="btn btn-g" id="demo"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4F46E5" stroke-width="2" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M10 8.5v7l5.5-3.5z" fill="#4F46E5"/></svg>Watch Demo</button>
+      </div>
+      <p class="note">No experience needed. Just curiosity.</p>
+    </div>
+    <div class="panel">
+      <div class="screen">
+        <div class="bar"><b></b><b></b><b></b><em>Learning, reimagined</em></div>
+        <div class="video">
+          <button class="play" id="play" aria-label="Play preview"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"><path d="M7 4v16l13-8z"/></svg></button>
+          <small id="vmsg">Your next chapter, in focus</small>
+        </div>
+        <div class="row">
+          <span class="book"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 5h7a2 2 0 0 1 2 2v13a2 2 0 0 0-2-2H3zM21 5h-7a2 2 0 0 0-2 2v13a2 2 0 0 1 2-2h7z"/></svg></span>
+          <div><b>Make room for possibility</b><div class="track"><i id="bar"></i></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="gray" id="features">
+  <div class="c">
+    <div class="head"><p class="eyebrow">Made for your momentum</p><h2>A better way to move forward.</h2><p class="lead">Everything you need to make learning click.</p></div>
+    <div class="grid3">
+      <article class="card feat"><div class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 9 10-5 10 5-10 5z"/><path d="M6 11v5c3 2 9 2 12 0v-5"/></svg></div><h3>Learn from experts</h3><p>Practical lessons. Real experience.</p></article>
+      <article class="card feat"><div class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3>Move at your pace</h3><p>Make progress on your schedule.</p></article>
+      <article class="card feat"><div class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="11" rx="2"/><path d="M2 20h20"/></svg></div><h3>Build something real</h3><p>Turn new skills into real projects.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="courses">
+  <div class="c">
+    <div class="head" id="pricing"><p class="eyebrow">Find your starting point</p><h2>Big skills. Small first steps.</h2><p class="lead">Three learner favorites to get you going. One-time prices. Lifetime access.</p></div>
+    <div class="grid3">
+      <article class="card course">
+        <div class="thumb t1"><span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4F46E5" stroke-width="1.8" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16M10 10v10"/></svg></span><em>Design / Course preview</em></div>
+        <div class="cb"><p class="meta">Beginner · 6 hours</p><h3>UI Design Essentials</h3>
+          <div class="rate"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2" stroke-linejoin="round"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg><b>4.8</b>(240 reviews)</div>
+          <div class="buy"><span class="price">$49</span><button class="btn btn-p btn-s" data-open>Enroll</button></div></div>
+      </article>
+      <article class="card course">
+        <div class="thumb t2"><span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4F46E5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M14 5l-4 14"/></svg></span><em>Development / Course preview</em></div>
+        <div class="cb"><p class="meta">Beginner · 8 hours</p><h3>Web Development Basics</h3>
+          <div class="rate"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2" stroke-linejoin="round"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg><b>4.9</b>(186 reviews)</div>
+          <div class="buy"><span class="price">$59</span><button class="btn btn-p btn-s" data-open>Enroll</button></div></div>
+      </article>
+      <article class="card course">
+        <div class="thumb t3"><span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4F46E5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2M14 8l5-4"/></svg></span><em>Data / Course preview</em></div>
+        <div class="cb"><p class="meta">Beginner · 7 hours</p><h3>Data Analytics Foundations</h3>
+          <div class="rate"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2" stroke-linejoin="round"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg><b>4.9</b>(212 reviews)</div>
+          <div class="buy"><span class="price">$69</span><button class="btn btn-p btn-s" data-open>Enroll</button></div></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="gray" id="stories">
+  <div class="c">
+    <div class="head"><p class="eyebrow">Real people. Real progress.</p><h2>Their next chapter started here.</h2><p class="lead">A few words from learners who took the leap.</p></div>
+    <div class="grid2">
+      <figure class="card quote"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M4 18v-6c0-4 2-6.5 6-7l.5 2C8.3 7.6 7.5 9 7.5 11H10v7zM14 18v-6c0-4 2-6.5 6-7l.5 2c-2.2.6-3 2-3 4H20v7z"/></svg><p>“I went from seeing design inspiration to creating my own portfolio. The bite-sized lessons made it easy to keep going, even after a busy day.”</p><figcaption class="who"><span class="av">AM</span><div><b>Alex Morgan</b><small>Junior product designer</small></div></figcaption></figure>
+      <figure class="card quote"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M4 18v-6c0-4 2-6.5 6-7l.5 2C8.3 7.6 7.5 9 7.5 11H10v7zM14 18v-6c0-4 2-6.5 6-7l.5 2c-2.2.6-3 2-3 4H20v7z"/></svg><p>“The projects made everything click. I built my first website, shared it with my team, and finally felt confident putting my new skills to work.”</p><figcaption class="who"><span class="av">JL</span><div><b>Jamie Lee</b><small>Marketing specialist</small></div></figcaption></figure>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer id="contact">
+  <div class="c">
+    <div class="foot">
+      <div><a class="logo" href="#home"><i><svg width="14" height="14"><use href="#mark"/></svg></i>LearnPath</a><p class="tagline">A little learning. A world of possibility.</p></div>
+      <div><h4>Explore LearnPath</h4><nav><a href="#home">Home</a><a href="#courses">Courses</a><a href="#pricing">Pricing</a><a href="#contact">Contact</a></nav></div>
+      <div class="sc"><h4>Stay connected</h4>
+        <div class="social">
+          <a href="#" aria-label="Instagram"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".8" fill="currentColor"/></svg></a>
+          <a href="#" aria-label="LinkedIn"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M4 9h4v11H4zM6 3.5a2.3 2.3 0 1 1 0 4.6 2.3 2.3 0 0 1 0-4.6zM10 9h3.8v1.6c.6-1 1.9-1.9 3.8-1.9 3.5 0 4.4 2.3 4.4 5.3V20h-4v-5.3c0-1.3 0-2.9-1.8-2.9s-2.1 1.4-2.1 2.8V20h-4z"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="4"/><path d="M10 9.5v5l4.5-2.5z" fill="currentColor"/></svg></a>
+        </div></div>
+    </div>
+    <p class="copy">© 2026 LearnPath. All rights reserved.</p>
+  </div>
+</footer>
+
+<div class="ov" id="ov" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="mh">
+    <div class="mt"><a class="logo" href="#home"><i><svg width="14" height="14"><use href="#mark"/></svg></i>LearnPath</a>
+      <button id="close" aria-label="Close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+    <div id="fv">
+      <h2 id="mh">Your next chapter awaits.</h2>
+      <p class="lead">Create your LearnPath account to get started.</p>
+      <form id="form" novalidate>
+        <label for="n">Name</label><input id="n" placeholder="Your full name" autocomplete="name"><div class="err" id="en"></div>
+        <label for="e">Email</label><input id="e" type="email" placeholder="you@example.com" autocomplete="email"><div class="err" id="ee"></div>
+        <label for="p">Password</label>
+        <div class="f"><input id="p" type="password" placeholder="Create a password" autocomplete="new-password">
+          <button type="button" class="eye" id="eye" aria-label="Show password"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
+        <div class="hint" id="hp">Use at least 8 characters.</div>
+        <button class="btn btn-p btn-w" type="submit">Submit</button>
+      </form>
+    </div>
+    <div class="ok" id="ok" hidden>
+      <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg></div>
+      <h2 id="okt">You’re in.</h2><p class="lead" style="margin-bottom:16px">Check your inbox to confirm your email.</p>
+      <button class="btn btn-p btn-w" id="done">Done</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var $=function(s,c){return (c||document).querySelector(s)},$$=function(s,c){return [].slice.call((c||document).querySelectorAll(s))};
+
+  /* mobile menu */
+  var mm=$('#mm'),burger=$('#burger');
+  function menu(o){mm.classList.toggle('open',o);mm.setAttribute('aria-hidden',!o);burger.setAttribute('aria-expanded',o)}
+  burger.addEventListener('click',function(){menu(true)});
+  $('#mx').addEventListener('click',function(){menu(false)});
+  $$('a.i',mm).forEach(function(a){a.addEventListener('click',function(){menu(false)})});
+
+  /* active nav link */
+  var links=$$('.links a'),map={home:'#home',features:'#home',courses:'#courses',stories:'#courses'};
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting){links.forEach(function(l){l.classList.toggle('on',l.getAttribute('href')===map[e.target.id])})}
+  })},{rootMargin:'-45% 0px -50% 0px'});
+  $$('main section').forEach(function(s){io.observe(s)});
+
+  /* hero preview */
+  var on=false,t=null,bar=$('#bar'),msg=$('#vmsg'),pb=$('#play'),w=60;
+  var PLAY='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"><path d="M7 4v16l13-8z"/></svg>',
+      PAUSE='<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>';
+  function toggle(){
+    on=!on;pb.innerHTML=on?PAUSE:PLAY;msg.textContent=on?'Playing preview…':'Your next chapter, in focus';
+    clearInterval(t);if(on){t=setInterval(function(){w=w>=100?0:w+1;bar.style.width=w+'%'},120)}
+  }
+  pb.addEventListener('click',toggle);
+  $('#demo').addEventListener('click',function(){$('.panel').scrollIntoView({behavior:'smooth',block:'center'});if(!on)toggle()});
+
+  /* modal */
+  var ov=$('#ov'),last=null,form=$('#form');
+  function open(){last=document.activeElement;menu(false);$('#fv').hidden=false;$('#ok').hidden=true;ov.classList.add('open');ov.setAttribute('aria-hidden','false');setTimeout(function(){$('#n').focus()},60)}
+  function close(){ov.classList.remove('open');ov.setAttribute('aria-hidden','true');if(last)last.focus()}
+  $$('[data-open]').forEach(function(b){b.addEventListener('click',open)});
+  $('#close').addEventListener('click',close);$('#done').addEventListener('click',close);
+  ov.addEventListener('click',function(e){if(e.target===ov)close()});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(ov.classList.contains('open'))close();menu(false)}});
+  $('#eye').addEventListener('click',function(){var p=$('#p');p.type=p.type==='password'?'text':'password'});
+
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var n=$('#n'),m=$('#e'),p=$('#p'),ok=true;
+    function chk(el,err,bad,msg){el.classList.toggle('bad',bad);if(err)err.textContent=bad?msg:'';if(bad)ok=false}
+    chk(n,$('#en'),n.value.trim().length<2,'Enter your name.');
+    chk(m,$('#ee'),!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(m.value),'Enter a valid email address.');
+    chk(p,null,p.value.length<8);$('#hp').classList.toggle('bad',p.value.length<8);
+    if(!ok)return;
+    $('#okt').textContent='You’re in, '+n.value.trim().split(' ')[0]+'.';
+    $('#fv').hidden=true;$('#ok').hidden=false;form.reset();
+  });
+})();
+</script>
+</body>
+</html>
